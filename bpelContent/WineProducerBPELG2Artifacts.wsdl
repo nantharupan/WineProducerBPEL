@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:p="http://www.w3.org/2001/XMLSchema" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://eclipse.org/bpel/sample" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://www.example.org/WareHouseWSDL/" name="WineProducerBPELG2" targetNamespace="http://eclipse.org/bpel/sample">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <vprop:property name="MYCS" type="p:int"/>
+    <vprop:propertyAlias messageType="tns:AlterOrderRequest" part="parameters" propertyName="tns:MYCS">
+    <vprop:query><![CDATA[/tns:orderid]]></vprop:query>
+  </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:CancelOrderRequest" part="parameters" propertyName="tns:MYCS">
+    <vprop:query><![CDATA[/tns:orderid]]></vprop:query>
+  </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:CheckStatusRequest" part="parameters" propertyName="tns:MYCS">
+    <vprop:query><![CDATA[/tns:orderid]]></vprop:query>
+  </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:GetInvoiceRequest" part="parameters" propertyName="tns:MYCS">
+    <vprop:query><![CDATA[/tns:oderid]]></vprop:query>
+  </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:PaymentRequest" part="parameters" propertyName="tns:MYCS">
+    <vprop:query><![CDATA[/tns:orderid]]></vprop:query>
+  </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns:WineProducerBPELG2RequestMessage" part="payload" propertyName="tns:MYCS">
+    <vprop:query><![CDATA[/tns:orderid]]></vprop:query>
+  </vprop:propertyAlias>
+    <plnk:partnerLinkType name="WareHousePLT">
+    <plnk:role name="WareHouseRole" portType="wsdl:WareHouseWSDL"/>
+  </plnk:partnerLinkType>
+    <vprop:propertyAlias messageType="tns:ConfirmOrderRequest" part="parameters" propertyName="tns:MYCS">
+    <vprop:query><![CDATA[/tns:orderid]]></vprop:query>
+  </vprop:propertyAlias>
+    <import location="WareHouseWSDL.wsdl" namespace="http://www.example.org/WareHouseWSDL/"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:Q1="http://www.example.org/warehouse" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://eclipse.org/bpel/sample">
+
+            <import namespace="http://www.example.org/warehouse" schemaLocation="warehouse.xsd"/>
+            <element name="WineProducerBPELG2Request">
+                <complexType>
+                    <sequence>
+                    	<element name="orderid" type="int"/>
+                    	<element name="locationid" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="WineProducerBPELG2Response">
+                <complexType>
+                    <sequence>
+                        <element maxOccurs="unbounded" minOccurs="1" name="result" type="Q1:AvailableResponseXSD"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ConfirmOrder">
+            	<complexType>
+            		<sequence>
+            			<element name="orderid" type="int"/>
+            			<element maxOccurs="unbounded" minOccurs="1" name="product" type="Q1:OrderDetailType"/>
+            			<element name="customerid" type="int"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="ConfirmOrderResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="confirmed" type="boolean"/>
+            			<element name="test" type="string"/>
+            		</sequence>
+            	</complexType>
+            </element>
+        
+            <complexType name="Product">
+            	<sequence>
+            		<element name="productid" type="int"/>
+            		<element name="amount" type="int"/>
+            		<element name="price" type="float"/>
+            		<element name="productname" type="string"/>
+            		<element name="region" type="string"/>
+            	</sequence>
+            </complexType>
+            <element name="CheckStatus">
+            	<complexType>
+            		<sequence>
+            			<element name="orderid" type="int"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="CheckStatusResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="status" type="int"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="CancelOrder">
+            	<complexType>
+            		<sequence>
+            			<element name="orderid" type="int"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="CancelOrderResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="test" type="string"/>
+            			<element name="isCanceled" type="boolean"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="GetInvoice">
+            	<complexType>
+            		<sequence>
+            			<element name="oderid" type="int"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="GetInvoiceResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="test" type="string"/>
+            			<element name="productcost" type="double"/>
+            			<element name="transportationcost" type="double">
+            			</element>
+            			<element name="totalcost" type="double"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="AlterOrder">
+            	<complexType>
+            		<sequence>
+            			<element name="orderid" type="int"/>
+            			<element name="product" type="tns:Product"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="AlterOrderResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="test" type="string"/>
+            			<element name="isAltered" type="boolean"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="Payment">
+            	<complexType>
+            		<sequence>
+            			<element name="orderid" type="int"/>
+            			<element name="bank" type="string"/>
+            			<element name="cardnumber" type="double"/>
+            			<element name="securitynumber" type="int"/>
+            			<element name="amount" type="double"/>
+            			<element name="expirydate" type="date"/>
+            		</sequence>
+            	</complexType>
+            </element>
+            <element name="PaymentResponse">
+            	<complexType>
+            		<sequence>
+            			<element name="test" type="string"/>
+            			<element name="isPayed" type="boolean"/>
+            		</sequence>
+            	</complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="WineProducerBPELG2RequestMessage">
+        <part element="tns:WineProducerBPELG2Request" name="payload"/>
+    </message>
+    <message name="WineProducerBPELG2ResponseMessage">
+        <part element="tns:WineProducerBPELG2Response" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the WineProducerBPELG2 BPEL process -->
+    <message name="ConfirmOrderRequest">
+    	<part element="tns:ConfirmOrder" name="parameters"/>
+    </message>
+    <message name="ConfirmOrderResponse">
+    	<part element="tns:ConfirmOrderResponse" name="parameters"/>
+    </message>
+    <message name="CheckStatusRequest">
+    	<part element="tns:CheckStatus" name="parameters"/>
+    </message>
+    <message name="CheckStatusResponse">
+    	<part element="tns:CheckStatusResponse" name="parameters"/>
+    </message>
+    <message name="CancelOrderRequest">
+    	<part element="tns:CancelOrder" name="parameters"/>
+    </message>
+    <message name="CancelOrderResponse">
+    	<part element="tns:CancelOrderResponse" name="parameters"/>
+    </message>
+    <message name="GetInvoiceRequest">
+    	<part element="tns:GetInvoice" name="parameters"/>
+    </message>
+    <message name="GetInvoiceResponse">
+    	<part element="tns:GetInvoiceResponse" name="parameters"/>
+    </message>
+    <message name="AlterOrderRequest">
+    	<part element="tns:AlterOrder" name="parameters"/>
+    </message>
+    <message name="AlterOrderResponse">
+    	<part element="tns:AlterOrderResponse" name="parameters"/>
+    </message>
+    <message name="PaymentRequest">
+    	<part element="tns:Payment" name="parameters"/>
+    </message>
+    <message name="PaymentResponse">
+    	<part element="tns:PaymentResponse" name="parameters"/>
+    </message>
+    <portType name="WineProducerBPELG2">
+        <operation name="CheckAvailability">
+            <input message="tns:WineProducerBPELG2RequestMessage"/>
+            <output message="tns:WineProducerBPELG2ResponseMessage"/>
+        </operation>
+        <operation name="ConfirmOrder">
+        	<input message="tns:ConfirmOrderRequest"/>
+        	<output message="tns:ConfirmOrderResponse"/>
+        </operation>
+        <operation name="CheckStatus">
+        	<input message="tns:CheckStatusRequest"/>
+        	<output message="tns:CheckStatusResponse"/>
+        </operation>
+        <operation name="CancelOrder">
+        	<input message="tns:CancelOrderRequest"/>
+        	<output message="tns:CancelOrderResponse"/>
+        </operation>
+        <operation name="GetInvoice">
+        	<input message="tns:GetInvoiceRequest"/>
+        	<output message="tns:GetInvoiceResponse"/>
+        </operation>
+        <operation name="AlterOrder">
+        	<input message="tns:AlterOrderRequest"/>
+        	<output message="tns:AlterOrderResponse"/>
+        </operation>
+        <operation name="Payment">
+        	<input message="tns:PaymentRequest"/>
+        	<output message="tns:PaymentResponse"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="WineProducerBPELG2">
+        <plnk:role name="WineProducerBPELG2Provider" portType="tns:WineProducerBPELG2"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="WineProducerBPELG2Binding" type="tns:WineProducerBPELG2">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="CheckAvailability">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/CheckAvailability"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    	<operation name="ConfirmOrder">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/ConfirmOrder"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    	<operation name="CheckStatus">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/CheckStatus"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    	<operation name="CancelOrder">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/CancelOrder"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    	<operation name="GetInvoice">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/GetInvoice"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    	<operation name="AlterOrder">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/AlterOrder"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    	<operation name="Payment">
+    		<soap:operation soapAction="http://eclipse.org/bpel/sample/Payment"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="WineProducerBPELG2Service">
+    	<port binding="tns:WineProducerBPELG2Binding" name="WineProducerBPELG2Port">
+    		<soap:address location="http://localhost:8080/ode/processes/WineProducerBPELG2"/>
+    	</port>
+    </service>
+</definitions>

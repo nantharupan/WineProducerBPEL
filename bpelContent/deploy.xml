@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:WareHouseWSDL="http://www.example.org/WareHouseWSDL/" xmlns:sample="http://eclipse.org/bpel/sample">
+  <process name="sample:WineProducerBPELG2">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="sample:WineProducerBPELG2Service" port="WineProducerBPELG2Port"/>
+    </provide>
+    <invoke partnerLink="WareHousePL">
+      <service name="WareHouseWSDL:WareHouseWSDL" port="WareHouseWSDLSOAP"/>
+    </invoke>
+  </process>
+</deploy>

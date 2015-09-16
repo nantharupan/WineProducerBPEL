@@ -1,0 +1,251 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.example.org/WareHouseWSDL/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="WareHouseWSDL" targetNamespace="http://www.example.org/WareHouseWSDL/">
+<wsdl:types>
+<xsd:schema xmlns:Q1="http://www.example.org/warehouse" targetNamespace="http://www.example.org/WareHouseWSDL/">
+<xsd:import namespace="http://www.example.org/warehouse" schemaLocation="warehouse.xsd"/>
+<xsd:element name="CheckAvailability">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="0" name="wine_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckAvailabilityResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="out" type="Q1:AvailableResponseXSD"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CreateOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order" type="Q1:OrderType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="order_product" type="Q1:OrderDetailType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CreateOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CancelOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CancelOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="ConfirmOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="ConfirmOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order" type="Q1:OrderType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="order_product" type="Q1:OrderDetailType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrder">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order" type="Q1:OrderType"/>
+<xsd:element maxOccurs="unbounded" minOccurs="1" name="order_product" type="Q1:OrderDetailType"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="EditOrderResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="out" type="xsd:boolean"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderStatus">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="order_id" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="CheckOrderStatusResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="status" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+</xsd:schema>
+</wsdl:types>
+<wsdl:message name="CreateOrderRequest">
+<wsdl:part name="parameters" element="tns:CreateOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CancelOrderResponse">
+<wsdl:part name="parameters" element="tns:CancelOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="ConfirmOrderRequest">
+<wsdl:part name="parameters" element="tns:ConfirmOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderResponse">
+<wsdl:part name="parameters" element="tns:CheckOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="ConfirmOrderResponse">
+<wsdl:part name="parameters" element="tns:ConfirmOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderRequest">
+<wsdl:part name="parameters" element="tns:CheckOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckAvailabilityResponse">
+<wsdl:part name="parameters" element="tns:CheckAvailabilityResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="EditOrderResponse">
+<wsdl:part name="parameters" element="tns:EditOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="EditOrderRequest">
+<wsdl:part name="parameters" element="tns:EditOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderStatusResponse">
+<wsdl:part name="parameters" element="tns:CheckOrderStatusResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckOrderStatusRequest">
+<wsdl:part name="parameters" element="tns:CheckOrderStatus"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CreateOrderResponse">
+<wsdl:part name="parameters" element="tns:CreateOrderResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CancelOrderRequest">
+<wsdl:part name="parameters" element="tns:CancelOrder"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="CheckAvailabilityRequest">
+<wsdl:part name="parameters" element="tns:CheckAvailability"></wsdl:part>
+</wsdl:message>
+<wsdl:portType name="WareHouseWSDL">
+<wsdl:operation name="CheckAvailability">
+<wsdl:input message="tns:CheckAvailabilityRequest"></wsdl:input>
+<wsdl:output message="tns:CheckAvailabilityResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CreateOrder">
+<wsdl:input message="tns:CreateOrderRequest"></wsdl:input>
+<wsdl:output message="tns:CreateOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CancelOrder">
+<wsdl:input message="tns:CancelOrderRequest"></wsdl:input>
+<wsdl:output message="tns:CancelOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ConfirmOrder">
+<wsdl:input message="tns:ConfirmOrderRequest"></wsdl:input>
+<wsdl:output message="tns:ConfirmOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrder">
+<wsdl:input message="tns:CheckOrderRequest"></wsdl:input>
+<wsdl:output message="tns:CheckOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrder">
+<wsdl:input message="tns:EditOrderRequest"></wsdl:input>
+<wsdl:output message="tns:EditOrderResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrderStatus">
+<wsdl:input message="tns:CheckOrderStatusRequest"></wsdl:input>
+<wsdl:output message="tns:CheckOrderStatusResponse"></wsdl:output>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="WareHouseWSDLSOAP" type="tns:WareHouseWSDL">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="CheckAvailability">
+<soap:operation soapAction="http://www.example.org/WareHouseWSDL/CheckAvailability"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CreateOrder">
+<soap:operation soapAction="http://www.example.org/WareHouseWSDL/CreateOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CancelOrder">
+<soap:operation soapAction="http://www.example.org/WareHouseWSDL/CancelOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ConfirmOrder">
+<soap:operation soapAction="http://www.example.org/WareHouseWSDL/ConfirmOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrder">
+<soap:operation soapAction="http://www.example.org/WareHouseWSDL/CheckOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EditOrder">
+<soap:operation soapAction="http://www.example.org/WareHouseWSDL/EditOrder"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="CheckOrderStatus">
+<soap:operation soapAction="http://www.example.org/WareHouseWSDL/CheckOrderStatus"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="WareHouseWSDL">
+<wsdl:port name="WareHouseWSDLSOAP" binding="tns:WareHouseWSDLSOAP">
+<soap:address location="http://imse.sorenna.lv:8080/Wine/services/WareHouseWSDL/"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
